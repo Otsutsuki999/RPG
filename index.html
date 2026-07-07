@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mundo Ninja RPG</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Cinzel:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(ellipse at center, #1a0a2e 0%, #0a0a0a 100%);
+            min-height: 100vh;
+            color: #d0c0e0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #3a2a5a;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-icon {
+            font-size: 48px;
+            filter: drop-shadow(0 0 15px rgba(160, 100, 220, 0.7));
+        }
+
+        .logo-area h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 38px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #e0d0f0, #9b6fc0, #5a3a8a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 2px;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .ninja-image {
+            background: radial-gradient(circle at center, #1a0a2e 0%, #0a0510 100%);
+            border-radius: 20px;
+            padding: 30px 40px;
+            border: 2px solid #3a2a5a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 300px;
+            min-height: 400px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 40px rgba(100, 30, 160, 0.3), inset 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .ninja-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(140, 80, 200, 0.08) 0%, transparent 70%);
+            animation: rotate 25s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .ninja-avatar {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .ninja-svg-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .ninja-svg {
+            width: 280px;
+            height: 280px;
+            filter: drop-shadow(0 0 60px rgba(160, 80, 220, 0.5));
+            animation: floatShadow 4s ease-in-out infinite;
+        }
+
+        @keyframes floatShadow {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-10px) scale(1.02); }
+        }
+
+        .ninja-avatar .ninja-name-tag {
+            margin-top: 20px;
+            font-family: 'Cinzel', serif;
+            font-size: 18px;
+            color: #c0a0e0;
+            letter-spacing: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            background: rgba(10, 0, 20, 0.8);
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: 1px solid #6a4a9a;
+            text-shadow: 0 0 10px rgba(140, 80, 200, 0.5);
+        }
+
+        .search-bar {
+            background: #1a0a2e;
+            border-radius: 15px;
+            padding: 15px 20px;
+            border: 1px solid #3a2a5a;
+            box-shadow: 0 0 15px rgba(80, 20, 140, 0.2);
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 14px 18px;
+            background: #0a0510;
+            border: 2px solid #3a2a5a;
+            border-radius: 12px;
+            color: #d0c0e0;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .search-bar input:focus {
+            border-color: #7b4fbe;
+            box-shadow: 0 0 15px rgba(120, 60, 180, 0.4);
+        }
+
+        .players-list {
+            background: linear-gradient(135deg, #1a0a2e, #0d0518);
+            border-radius: 20px;
+            border: 1px solid #3a2a5a;
+            overflow: hidden;
+            box-shadow: 0 0 25px rgba(80, 20, 140, 0.3);
+        }
+
+        .list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 25px;
+            background: #0d0518;
+            border-bottom: 2px solid #3a2a5a;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .list-header h2 {
+            color: #c0a0e0;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        .players-table-wrapper {
+            overflow-x: auto;
+        }
+
+        .players-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .players-table th {
+            text-align: left;
+            padding: 18px 15px;
+            background: #0d0518;
+            color: #9a8ab0;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #3a2a5a;
+        }
+
+        .players-table td {
+            padding: 16px 15px;
+            border-bottom: 1px solid #2a1a3e;
+            color: #d0c0e0;
+        }
+
+        .players-table tr {
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .players-table tr:hover {
+            background: rgba(100, 40, 160, 0.15);
+            transform: scale(1.01);
+        }
+
+        .rank-number {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, #7b4fbe, #a070d0);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            font-weight: bold;
+            color: #0a0a0a;
+            font-size: 16px;
+            box-shadow: 0 0 10px rgba(120, 60, 180, 0.5);
+        }
+
+        .clan-badge {
+            background: #2a1a3e;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #c0a0e0;
+            display: inline-block;
+            border: 1px solid #4a2a6a;
+        }
+
+        .class-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .class-aluno { background: #4a3a6a; color: #d0c0e0; }
+        .class-gennin { background: #3a5a3a; color: #c0e0c0; }
+        .class-chunin { background: #3a4a6a; color: #c0d0f0; }
+        .class-jonin { background: #6a3a6a; color: #e0c0e0; }
+        .class-anbu { background: #6a4a2a; color: #f0d0c0; }
+        .class-hokage { background: linear-gradient(135deg, #8a6a2a, #6a4a1a); color: #0a0a0a; }
+        .class-sannin { background: linear-gradient(135deg, #6a2a2a, #8a3a3a); color: #f0c0c0; }
+
+        .bingobook-value {
+            font-weight: bold;
+            color: #c0a0e0;
+            font-size: 18px;
+        }
+
+        .xp-value {
+            font-weight: 600;
+            color: #a0c0a0;
+        }
+
+        .ryo-value {
+            font-weight: 600;
+            color: #e0c080;
+        }
+
+        .nivel-value {
+            font-weight: 700;
+            color: #e8d0f8;
+            background: rgba(100, 40, 160, 0.3);
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid #7b4fbe;
+            display: inline-block;
+            font-size: 14px;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 60px;
+            color: #6a5a8a;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 0, 20, 0.95);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a0a2e, #0d0518);
+            padding: 40px;
+            border-radius: 25px;
+            width: 400px;
+            border: 3px solid #7b4fbe;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(100, 40, 160, 0.5);
+        }
+
+        .modal-content h3 {
+            color: #c0a0e0;
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        .modal-content p {
+            margin: 8px 0;
+            color: #d0c0e0;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 900px) {
+            .top-bar {
+                flex-direction: column;
+                align-items: center;
+            }
+            .players-table th, .players-table td {
+                font-size: 11px;
+                padding: 8px 5px;
+            }
+            .ninja-svg {
+                width: 200px;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo-area">
+                <span class="logo-icon">🌑</span>
+                <h1>MUNDO NINJA RPG</h1>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <div class="top-bar">
+                <!-- LUA ROXA -->
+                <div class="ninja-image">
+                    <div class="ninja-avatar">
+                        <div class="ninja-svg-container">
+                            <svg class="ninja-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <radialGradient id="moonGrad" cx="50%" cy="50%" r="50%">
+                                        <stop offset="0%" stop-color="#d0a0f0"/>
+                                        <stop offset="30%" stop-color="#a070d0"/>
+                                        <stop offset="70%" stop-color="#7a4ab0"/>
+                                        <stop offset="100%" stop-color="#3a1a5a"/>
+                                    </radialGradient>
+                                    <radialGradient id="innerGlow" cx="50%" cy="50%" r="50%">
+                                        <stop offset="0%" stop-color="#e8d0f8" stop-opacity="0.6"/>
+                                        <stop offset="100%" stop-color="#a070d0" stop-opacity="0"/>
+                                    </radialGradient>
+                                    <filter id="glow">
+                                        <feGaussianBlur stdDeviation="3" result="blur"/>
+                                        <feMerge>
+                                            <feMergeNode in="blur"/>
+                                            <feMergeNode in="SourceGraphic"/>
+                                        </feMerge>
+                                    </filter>
+                                    <filter id="strongGlow">
+                                        <feGaussianBlur stdDeviation="6" result="blur"/>
+                                        <feMerge>
+                                            <feMergeNode in="blur"/>
+                                            <feMergeNode in="SourceGraphic"/>
+                                        </feMerge>
+                                    </filter>
+                                </defs>
+                                <circle cx="150" cy="150" r="130" fill="none" stroke="#a070d0" stroke-width="2" opacity="0.3">
+                                    <animate attributeName="opacity" values="0.3;0.6;0.3" dur="3s" repeatCount="indefinite"/>
+                                </circle>
+                                <circle cx="150" cy="150" r="120" fill="none" stroke="#c090e0" stroke-width="1.5" opacity="0.2">
+                                    <animate attributeName="opacity" values="0.2;0.5;0.2" dur="4s" repeatCount="indefinite"/>
+                                </circle>
+                                <circle cx="150" cy="150" r="105" fill="url(#moonGrad)" stroke="#8a5ab0" stroke-width="3" filter="url(#strongGlow)"/>
+                                <circle cx="150" cy="150" r="100" fill="url(#innerGlow)" opacity="0.4">
+                                    <animate attributeName="opacity" values="0.4;0.7;0.4" dur="2.5s" repeatCount="indefinite"/>
+                                </circle>
+                                <circle cx="150" cy="150" r="70" fill="none" stroke="#e0c8f0" stroke-width="1.5" opacity="0.5"/>
+                                <circle cx="150" cy="150" r="55" fill="none" stroke="#d0b0e8" stroke-width="1.2" opacity="0.4"/>
+                                <circle cx="150" cy="150" r="40" fill="none" stroke="#c098e0" stroke-width="1" opacity="0.3"/>
+                                <circle cx="150" cy="150" r="25" fill="none" stroke="#b088d0" stroke-width="1" opacity="0.3"/>
+                                <g fill="#e0c8f0" opacity="0.8" filter="url(#glow)">
+                                    <circle cx="150" cy="85" r="9" stroke="#d0b0e8" stroke-width="1.5"/>
+                                    <circle cx="150" cy="215" r="9" stroke="#d0b0e8" stroke-width="1.5"/>
+                                    <circle cx="85" cy="120" r="9" stroke="#d0b0e8" stroke-width="1.5"/>
+                                    <circle cx="215" cy="120" r="9" stroke="#d0b0e8" stroke-width="1.5"/>
+                                    <circle cx="85" cy="180" r="9" stroke="#d0b0e8" stroke-width="1.5"/>
+                                    <circle cx="215" cy="180" r="9" stroke="#d0b0e8" stroke-width="1.5"/>
+                                </g>
+                                <g fill="#f0e0f8" opacity="0.6">
+                                    <circle cx="150" cy="100" r="4.5"/>
+                                    <circle cx="150" cy="200" r="4.5"/>
+                                    <circle cx="100" cy="130" r="4.5"/>
+                                    <circle cx="200" cy="130" r="4.5"/>
+                                    <circle cx="100" cy="170" r="4.5"/>
+                                    <circle cx="200" cy="170" r="4.5"/>
+                                </g>
+                                <circle cx="150" cy="150" r="14" fill="#1a0a2e" stroke="#d0b0e8" stroke-width="1.5" opacity="0.8"/>
+                                <circle cx="150" cy="150" r="8" fill="#0a0518" opacity="0.9"/>
+                                <circle cx="150" cy="150" r="6" fill="#f0e0f8" opacity="0.4">
+                                    <animate attributeName="opacity" values="0.4;0.9;0.4" dur="2s" repeatCount="indefinite"/>
+                                </circle>
+                                <circle cx="150" cy="150" r="3" fill="#ffffff" opacity="0.7">
+                                    <animate attributeName="opacity" values="0.7;1;0.7" dur="1.5s" repeatCount="indefinite"/>
+                                </circle>
+                                <circle cx="80" cy="70" r="3" fill="#d0b0e8" opacity="0.3"/>
+                                <circle cx="220" cy="80" r="2.5" fill="#d0b0e8" opacity="0.2"/>
+                                <circle cx="70" cy="200" r="2" fill="#d0b0e8" opacity="0.25"/>
+                                <circle cx="230" cy="210" r="3" fill="#d0b0e8" opacity="0.2"/>
+                            </svg>
+                        </div>
+                        <div class="ninja-name-tag">SÁBIO DOS 6 CAMINHOS</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="🔍 Buscar ninja por nome ou clã...">
+            </div>
+
+            <div class="players-list">
+                <div class="list-header">
+                    <h2>🏆 RANKING DOS SHINOBI</h2>
+                </div>
+
+                <div class="players-table-wrapper">
+                    <table class="players-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>SHINOBI</th>
+                                <th>CLÃ</th>
+                                <th>CLASSIFICAÇÃO</th>
+                                <th>📖 BINGO BOOK</th>
+                                <th>⭐ EXPERIÊNCIA</th>
+                                <th>💰 RYO</th>
+                                <th>🎚️ NÍVEL</th>
+                            </tr>
+                        </thead>
+                        <tbody id="playersTableBody"></tbody>
+                    </table>
+                </div>
+                <div id="emptyMessage" class="empty-message hidden">🌑 Nenhum ninja registrado na aldeia.</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ----- TABELA DE NÍVEIS (XP mínimo para cada nível) -----
+        const NIVEL_LIMITES = [
+            0,      // Nv1
+            10000,  // Nv2
+            25000,  // Nv3
+            45000,  // Nv4
+            70000,  // Nv5
+            100000, // Nv6
+            135000, // Nv7
+            175000, // Nv8
+            220000, // Nv9
+            250000, // Nv10
+            305000, // Nv11
+            365000, // Nv12
+            430000, // Nv13
+            500000, // Nv14
+            580000, // Nv15
+            670000, // Nv16
+            770000, // Nv17
+            880000, // Nv18
+            1000000,// Nv19
+            1150000,// Nv20
+            1300000,// Nv21
+            1450000,// Nv22
+            1600000,// Nv23
+            1750000,// Nv24
+            2000000 // Nv25 (a partir daqui)
+        ];
+
+        function getNivel(xp) {
+            if (xp === undefined || xp === null) xp = 0;
+            let nivel = 1;
+            for (let i = 0; i < NIVEL_LIMITES.length; i++) {
+                if (xp >= NIVEL_LIMITES[i]) {
+                    nivel = i + 1;
+                } else {
+                    break;
+                }
+            }
+            // Limita ao máximo de 25
+            if (nivel > 25) nivel = 25;
+            return nivel;
+        }
+
+        // ----- LISTA DE PERSONAGENS (11) -----
+        const ninjasMock = [
+            { id: 1, nome: "Gojo", cla: "Uchirra 👁️", classificacao: "Aluno", bingobook: 10, xp: 0, ryo: 5200 },
+            { id: 2, nome: "Zoro", cla: "Senju 🌳", classificacao: "Aluno", bingobook: 9, xp: 0, ryo: 5200 },
+            { id: 3, nome: "Escanor", cla: "Hatake 🐺", classificacao: "Aluno", bingobook: 8, xp: 0, ryo: 5200 },
+            { id: 4, nome: "Gabimaru", cla: "Hyuga 👁️‍🗨️", classificacao: "Aluno", bingobook: 7, xp: 0, ryo: 5200 },
+            { id: 5, nome: "Gon", cla: "Sarutobi 💮", classificacao: "Aluno", bingobook: 6, xp: 0, ryo: 5200 },
+            { id: 6, nome: "Kira", cla: "Nara 🌑", classificacao: "Aluno", bingobook: 5, xp: 0, ryo: 5200 },
+            { id: 7, nome: "Yuki", cla: "Aburami 🐞", classificacao: "Aluno", bingobook: 4, xp: 0, ryo: 5200 },
+            { id: 8, nome: "Asta", cla: "Haruno ⭕️", classificacao: "Aluno", bingobook: 3, xp: 0, ryo: 5200 },
+            { id: 9, nome: "Rimoru", cla: "Uzumaki ⛔️", classificacao: "Aluno", bingobook: 2, xp: 0, ryo: 5200 },
+            { id: 10, nome: "Natsuki", cla: "Lee 🥊", classificacao: "Aluno", bingobook: 1, xp: 0, ryo: 5200 },
+            { id: 11, nome: "Hagoromo", cla: "Otsutsuki🌕", classificacao: "Sannin", bingobook: 0, xp: 0, ryo: 0 }
+        ];
+
+        // ----- AUXILIARES -----
+        const CLASSIFICACOES_LISTA = [
+            { valor: "Aluno", icone: "📚", classe: "class-aluno" },
+            { valor: "Gennin", icone: "🍃", classe: "class-gennin" },
+            { valor: "Chunin", icone: "💧", classe: "class-chunin" },
+            { valor: "Jonin", icone: "⚡", classe: "class-jonin" },
+            { valor: "Anbu", icone: "🎭", classe: "class-anbu" },
+            { valor: "Sannin", icone: "🐍", classe: "class-sannin" },
+            { valor: "Hokage", icone: "👑", classe: "class-hokage" }
+        ];
+
+        function getClassInfo(classificacao) {
+            const found = CLASSIFICACOES_LISTA.find(c => c.valor === classificacao);
+            return found || CLASSIFICACOES_LISTA[0];
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        // ----- MODAL DE DETALHES (ao clicar na linha) -----
+        function mostrarDetalhes(ninja) {
+            const nivel = getNivel(ninja.xp);
+            const classInfo = getClassInfo(ninja.classificacao);
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <h3>👤 ${escapeHtml(ninja.nome)}</h3>
+                    <p><strong>Clã:</strong> ${escapeHtml(ninja.cla)}</p>
+                    <p><strong>Classificação:</strong> ${classInfo.icone} ${escapeHtml(ninja.classificacao)}</p>
+                    <p><strong>📖 Bingo Book:</strong> ${ninja.bingobook}</p>
+                    <p><strong>⭐ Experiência:</strong> ${ninja.xp.toLocaleString()}</p>
+                    <p><strong>💰 Ryo:</strong> ${ninja.ryo.toLocaleString()}</p>
+                    <p><strong>🎚️ Nível:</strong> Nv${nivel}</p>
+                    <br>
+                    <button onclick="this.closest('.modal').remove()" style="background:#7b4fbe; color:#0a0a0a; padding:10px 20px; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">FECHAR</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
+        }
+
+        // ----- RENDERIZAÇÃO DA TABELA -----
+        function renderizarLista(filtro = '') {
+            const sorted = [...ninjasMock].sort((a, b) => (b.bingobook || 0) - (a.bingobook || 0));
+            const termo = filtro.toLowerCase();
+            const filtrados = sorted.filter(n =>
+                n.nome.toLowerCase().includes(termo) ||
+                (n.cla || '').toLowerCase().includes(termo)
+            );
+
+            const tbody = document.getElementById('playersTableBody');
+            const empty = document.getElementById('emptyMessage');
+
+            if (filtrados.length === 0) {
+                tbody.innerHTML = '';
+                empty.classList.remove('hidden');
+                return;
+            }
+            empty.classList.add('hidden');
+
+            let html = '';
+            filtrados.forEach((n, index) => {
+                const classInfo = getClassInfo(n.classificacao);
+                const nivel = getNivel(n.xp);
+                html += `
+                    <tr data-id="${n.id}">
+                        <td><span class="rank-number">${index + 1}</span></td>
+                        <td><strong>${escapeHtml(n.nome)}</strong></td>
+                        <td><span class="clan-badge">${escapeHtml(n.cla)}</span></td>
+                        <td><span class="class-badge ${classInfo.classe}">${classInfo.icone} ${classInfo.valor}</span></td>
+                        <td><span class="bingobook-value">📖 ${n.bingobook}</span></td>
+                        <td><span class="xp-value">⭐ ${n.xp.toLocaleString()}</span></td>
+                        <td><span class="ryo-value">💰 ${n.ryo.toLocaleString()}</span></td>
+                        <td><span class="nivel-value">Nv${nivel}</span></td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+
+            // Clique na linha abre o modal de detalhes
+            document.querySelectorAll('#playersTableBody tr').forEach(row => {
+                row.addEventListener('click', () => {
+                    const ninja = ninjasMock.find(n => n.id == row.dataset.id);
+                    if (ninja) mostrarDetalhes(ninja);
+                });
+            });
+        }
+
+        // ----- BUSCA -----
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            renderizarLista(e.target.value);
+        });
+
+        // ----- INICIALIZA -----
+        renderizarLista();
+    </script>
+</body>
+</html>
